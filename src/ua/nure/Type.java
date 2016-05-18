@@ -1,5 +1,7 @@
 package ua.nure;
 
+import java.util.Random;
+
 public class Type {
 
     private double sizeCheles;
@@ -7,8 +9,28 @@ public class Type {
     private double sizeLep;
     private double widthLep;
     private String name;
+    private int[] array = new int[12];
 
+    public int[] getArray() {
+        return array;
+    }
 
+    public void setArray(int[] array) {
+        this.array = array;
+    }
+
+    public Type(int ar[], String name){
+        this.array=ar;
+        this.name = name;
+    }
+    public Type (String name){
+        Random r = new Random();
+        for (int i = 0; i<12;i++){
+            array[i] = r.nextInt(2);
+        }
+        this.name = name;
+
+    }
     public Type(double sizeCheles, double widthCheles, double sizeLep, double widthLep) {
 
         this.sizeCheles = sizeCheles;
@@ -27,24 +49,22 @@ public class Type {
         this.name = name;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Type)) return false;
 
-        Type type = (Type) o;
-
-        if (Math.abs(type.sizeCheles - sizeCheles)>0.1) {
-            if (Math.abs(type.widthCheles-widthCheles)>0.1){
-                if (Math.abs(type.sizeLep - sizeLep)>0.1){
-                    if(Math.abs(type.widthLep-widthLep)>0.1){
-                        return false;
-                    }
-                }
+    public boolean equals(Type o) {
+        int amoung = 0;
+        int[] ar = o.getArray();
+        for (int i = 0; i < 12; i++) {
+            if (ar[i] != array[i]) {
+                amoung++;
             }
-        }
 
-        return true;
+        }
+        if (amoung > 2){
+            return false;
+        }else
+        {
+            return true;
+        }
 
     }
 
